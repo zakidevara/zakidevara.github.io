@@ -1,0 +1,22 @@
+{
+    "name": "Champions League",
+    "gcm_sender_id": "1082656194357",
+    "short_name": "Champions League",
+    "description": "Aplikasi PWA yang menampilkan standings dan detail dari tim di Champions League",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#00897B",
+    "theme_color": "#00897B",
+    "icons": [
+        {
+            "src": "icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ]
+}
