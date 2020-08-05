@@ -1,6 +1,13 @@
 const BASE_URL = "https://api.football-data.org/v2/";
 const API_KEY = "a17006d015c84eeb991f1b042d3bbd8e";
 const COMPETITION_ID = "2001"; //Champions League
+const fetchApi = function(url) {    
+  return fetch(url, {
+    headers: {
+      'X-Auth-Token': API_KEY
+    }
+  });
+};
 
 // Blok kode yang akan di panggil jika fetch berhasil
 function status(response) {
@@ -33,24 +40,23 @@ function getStandings(renderCallback, renderPreloader, hidePreloader) {
     caches.match(BASE_URL + "competitions/" + COMPETITION_ID + "/standings?standingType=TOTAL").then(function(response) {
       if (response) {
         response.json().then((data) => {
-          renderCallback(data);
+          if(data){
+            renderCallback(data);
+          }
           hidePreloader();
         })
       }
       
     })
   }
-
-  const options = {
-    method: "GET",
-    headers: new Headers({"X-Auth-Token": API_KEY}),
-  };
   // Jika request tidak ada di cache, lanjutkan request ke server
-  fetch(BASE_URL + "competitions/" + COMPETITION_ID + "/standings?standingType=TOTAL", options)
+  fetchApi(BASE_URL + "competitions/" + COMPETITION_ID + "/standings?standingType=TOTAL")
     .then(status)
     .then(json)
     .then((data) => {
-      renderCallback(data);
+      if(data){
+        renderCallback(data);
+      }
       hidePreloader();
     })
     .catch(error);
@@ -66,7 +72,9 @@ function getTeamById(renderCallback, renderPreloader, hidePreloader) {
       caches.match(BASE_URL + "teams/" + teamId).then(function(response) {
         if (response) {
           response.json().then(function(data) {
-            renderCallback(data);
+            if(data){
+              renderCallback(data);
+            }
             hidePreloader();
             // Kirim objek data hasil parsing json agar bisa disimpan ke indexed db
             resolve(data);
@@ -75,19 +83,22 @@ function getTeamById(renderCallback, renderPreloader, hidePreloader) {
       });
     }
 
-    const options = {
-      method: "GET",
-      headers: new Headers({"X-Auth-Token": API_KEY}),
-    };
-    fetch(BASE_URL + "teams/" + teamId, options)
+    fetchApi(BASE_URL + "teams/" + teamId)
       .then(status)
       .then(json)
       .then(function(data) {
         console.log(data);
-        renderCallback(data);
+        if(data){
+          renderCallback(data);
+        }
         hidePreloader();
         // Kirim objek data hasil parsing json agar bisa disimpan ke indexed db
         resolve(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        hidePreloader();
+        renderNeedInternetAccess();
       });
   });
 }
@@ -102,7 +113,9 @@ function getTeamMatches(renderCallback, renderPreloader, hidePreloader) {
       caches.match(BASE_URL + "teams/" + teamId + "/matches?competitions=2001").then(function(response) {
         if (response) {
           response.json().then(function(data) {
-            renderCallback(data.matches);
+            if(data){
+              renderCallback(data.matches);
+            }
             hidePreloader();
             // Kirim objek data hasil parsing json agar bisa disimpan ke indexed db
             resolve(data);
@@ -111,19 +124,22 @@ function getTeamMatches(renderCallback, renderPreloader, hidePreloader) {
       });
     }
 
-    const options = {
-      method: "GET",
-      headers: new Headers({"X-Auth-Token": API_KEY}),
-    };
-    fetch(BASE_URL + "teams/" + teamId + "/matches?competitions=2001", options)
+    fetchApi(BASE_URL + "teams/" + teamId + "/matches?competitions=2001")
       .then(status)
       .then(json)
       .then(function(data) {
         console.log(data);
-        renderCallback(data.matches);
+        if(data){
+          renderCallback(data.matches);
+        }
         hidePreloader();
         // Kirim objek data hasil parsing json agar bisa disimpan ke indexed db
         resolve(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        hidePreloader();
+        renderNeedInternetAccess();
       });
   });
 }
@@ -143,7 +159,9 @@ function getFavoritedTeamById(renderTeamInfo, renderMatches, renderPreloader, hi
   renderPreloader();
   getTeamByIdIDB(teamId).then(function(team) {
     renderTeamInfo(team);
-    renderMatches(team.matches);
+    if(team){
+      renderMatches(team.matches);
+    }
     hidePreloader();
   });
 }

@@ -13,7 +13,7 @@ function addFavoriteTeamIDB(team) {
         let tx = db.transaction("teams", "readwrite");
         let store = tx.objectStore("teams");
         console.log(team);
-        store.add(team);
+        store.put(team);
         return tx.complete;
       })
       .then(function() {
@@ -69,8 +69,8 @@ function deleteTeamIDB(id) {
   return new Promise(function(resolve, reject){
     dbPromised
       .then(function(db) {
-        var tx = db.transaction('teams', 'readwrite');
-        var store = tx.objectStore('teams');
+        let tx = db.transaction('teams', 'readwrite');
+        let store = tx.objectStore('teams');
         store.delete(parseInt(id));
         return tx.complete;
       })

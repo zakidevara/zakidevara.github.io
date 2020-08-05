@@ -12,10 +12,10 @@ webPush.setVapidDetails(
    vapidKeys.privateKey
 )
 var pushSubscription = {
-   "endpoint": "https://fcm.googleapis.com/fcm/send/cbKtg3i1BC4:APA91bETho5XYHxYRJegEm6WcZP9k1nQJKXlWEDMn1wNWH9unDIda5NiLYp2b3lPBlLcx2txdzV5IRBfK_DwUXE_BHQRK7GSdliFqILUwikbC1ONsQx8Yj25GUmUMcT9SmRiXLU2h45L",
+   "endpoint": "https://fcm.googleapis.com/fcm/send/foVQx54FSp4:APA91bF2_d3G_YxXno5zdKxSFE0HOSIvZEVFG2nzTMSJU2NPs0TZH4wUWiSwnhM89EkdG5oCZRJl9_G0Ay4ob8ZKsYxkj4K2UgA6lszYNgBL_6tt-7AdzTju-6X2Em7MoURg8sLrgxN4",
    "keys": {
-       "p256dh": "BIT9+BoRDtsIaqkfRt2tOkKREAJlHR5RyFjrh3L+wuKkULNe189P+O0BpuVRBTt+CyAW+PFjAFJmSgkUXKA/IJo=",
-       "auth": "brKlq8OUIQVxO2rYrLiY+Q=="
+       "p256dh": "BFk8YkaCm9ZepJaEztB9eJJ3XEN7ujrq6e1W+OTqsJV210Ceq8fSB4JLxAkTmrS7MC7hf28FUL7XsMDkvyv2G1s=",
+       "auth": "DNev2W6BHQnleGzNGCHwTg=="
    }
 };
 var payload = 'Notifikasi dari Aplikasi Champions League!';
